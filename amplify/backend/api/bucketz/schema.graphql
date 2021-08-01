@@ -1,0 +1,22 @@
+type User @model
+@key(name: "byUserId", fields: ["userId"])
+{
+    id: ID!
+    userId: String!
+    name: String!
+    accounts: [Account] @connection(keyName: "byUserId", fields: ["userId"])
+}
+
+type Account @model @key(name: "byUserId", fields: ["userId"]) {
+    id: ID!
+    userId: String!
+    totalValue: String!
+    buckets: [Bucket] @connection(keyName: "byBucket", fields: ["id"])
+}
+
+type Bucket @model @key(name: "byBucket", fields: ["id"]) {
+    id: ID!
+    title: String!
+    goal: Int!
+    current: Int!
+}
